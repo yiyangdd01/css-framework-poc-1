@@ -1,14 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import getMockData from './mock';
+import tw from 'twin.macro';
 const Wrapper = styled.div.attrs(() => ({
-  className: 'w-320px h-auto bg-lightGrey bg-opacity-100'
-}))``;
+  className:`
+    h-auto
+    m-auto
+    bg-lightGrey
+    bg-opacity-100
+    rounded-sm overflow-hidden shadow-lg
+    `,
+}))`
+  width: 320px;
+`;
+
+const Wrapper2 = styled(Wrapper)`
+  ${tw`bg-red-500`};
+`;
 
 const ImageBox = styled.div.attrs(() => ({
-  className: 'bg-black'
 }))`
-    height: 160px;
     position: relative;
     &:before {
         display: table;
@@ -30,16 +41,23 @@ const Image = styled.img.attrs(() => ({
 const Title = styled.h2.attrs(() => ({
   className: 'text-xs'
 }))`
+  font-size: 18px;
   padding: 12px;
 `;
 
-const ContentCard = () => <Wrapper>
-  <ImageBox>
-    <RatioBox>
-      <Image src='https://cdn.hk01.com/di/media/images/5014126/org/437adfa6c1f39a3de98294dd744739cf.jpg/S5q8tMgRQs9LMtPkYhiGT5Yea8PxuhbcI07eayNO3ms?v=w480r16_9' />
-    </RatioBox>
-  </ImageBox>
-  <Title>sssss</Title>
-</Wrapper>
+const ContentCard = () => <Wrapper2>
+  {
+    getMockData().map(item => (
+      <div key={item.id}>
+        <ImageBox>
+          <RatioBox>
+            <Image src={item.image} />
+          </RatioBox>
+        </ImageBox>
+        <Title>{item.title}</Title>
+      </div>
+    ))
+  }
+</Wrapper2>;
 
 export default ContentCard;
